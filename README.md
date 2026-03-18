@@ -38,7 +38,7 @@ const handleSubmit = (data) => {
 
 ## 文档
 
-详细文档请访问 [Ah UI 文档](https://your-repo.github.io/ah-ui/)
+详细文档请访问 [Ah UI 文档](https://jianghua-cpu.github.io/ah-ui/)
 
 ## License
 
