@@ -1,10 +1,10 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
+  base: '/ah-ui/',
   title: 'Ah UI',
   description: '基于 Element Plus 封装的业务组件库',
   themeConfig: {
-    logo: '/logo.svg',
     nav: [
       { text: '首页', link: '/' },
       { text: '指南', link: '/guide/getting-started' },
