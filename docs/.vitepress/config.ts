@@ -31,7 +31,7 @@ export default defineConfig({
       ]
     },
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/your-repo/ah-ui' }
+      { icon: 'gitee', link: 'https://gitee.com/jiang_hua_wang/ah-ui' }
     ],
     footer: {
       message: 'Released under the MIT License.',
