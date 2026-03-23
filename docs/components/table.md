@@ -48,6 +48,8 @@ const fetchList = async (params) => {
 | show-search | 是否显示搜索区域 | `boolean` | `true` |
 | show-pagination | 是否显示分页 | `boolean` | `true` |
 | show-export | 是否显示导出按钮 | `boolean` | `true` |
+| export-mode | 导出模式，可选 `front` / `api` | `string` | `'front'` |
+| export-api | 导出接口（`export-mode="api"` 时必填） | `function` | - |
 | export-file-name | 导出文件名 | `string` | `'导出数据'` |
 | remote-paging | 是否后端分页 | `boolean` | `true` |
 
@@ -58,6 +60,66 @@ const fetchList = async (params) => {
 | search-change | 搜索参数变化时触发 | `(params: object)` |
 | selection-change | 选择项变化时触发 | `(selection: array)` |
 | page-change | 分页变化时触发 | `(page: number, size: number)` |
+| export-success | 导出成功后触发 | - |
+| export-error | 导出失败时触发 | `(error: any)`
+
+## 导出
+
+支持两种导出模式：通过 `export-mode` 控制。
+
+### 前端导出（默认）
+
+纯前端处理，使用 `xlsx` 库将当前表格已有数据导出为 Excel。
+
+```vue
+<ah-table
+  :api="fetchList"
+  :export-mode="'front'"
+  export-file-name="用户列表"
+/>
+```
+
+- 导出当前页或选中行的数据
+- 列头以表格 `label` 为准
+- 如列配置了 `export: false`，该列不会导出
+
+### 接口导出
+
+由后端接口返回文件流，前端触发下载。
+
+```vue
+<ah-table
+  :api="fetchList"
+  :export-mode="'api'"
+  :export-api="exportApi"
+  export-file-name="用户列表"
+  @export-success="handleExportSuccess"
+  @export-error="handleExportError"
+/>
+```
+
+```ts
+const exportApi = async (params) => {
+  return await axios.post('/api/user/export', params, {
+    responseType: 'blob'
+  })
+}
+```
+
+接口支持的返回格式：
+
+| 格式 | 说明 |
+|------|------|
+| 直接返回 `Blob` | 直接下载 |
+| `{ data: Blob, filename: string }` | 从 data 取 Blob，从 filename 取文件名 |
+| `{ url: string }` 或 `{ href: string }` | 通过链接下载 |
+
+### 对比
+
+| 模式 | 适用场景 | 数据来源 |
+|------|---------|---------|
+| `front` | 数据量小（千级以下）、无需后端参与 | 当前表格已有数据 |
+| `api` | 数据量大、需要后端分页/权限过滤 | 后端接口返回文件流 |
 
 ## Methods
 

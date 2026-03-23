@@ -36,6 +36,23 @@ import 'ah-ui/es/table/style'
 import 'ah-ui/es/form/style'
 ```
 
+### 单独引入 form 子组件
+
+`form` 模块内置了 12 个常用表单项子组件，可通过 `formComponents` 对象整体引入，或逐个引入：
+
+```ts
+// 整体引入（所有子组件）
+import { AhForm, formComponents } from 'ah-ui/form'
+const { AhInput, AhSelect, AhDatePicker } = formComponents
+
+// 逐个引入（更好的 Tree-shaking）
+import { AhInput, AhSelect, AhDatePicker } from 'ah-ui/form'
+```
+
+支持的子组件列表：`AhInput`、`AhSelect`、`AhDatePicker`、`AhDateRangePicker`、`AhTimePicker`、`AhSwitch`、`AhRadio`、`AhCheckbox`、`AhInputNumber`、`AhCascader`、`AhUpload`。
+
+> **说明**：`AhForm` 默认会在内部使用这些子组件，因此使用 `AhForm` 时无需额外引入。但如果你想在模板中单独使用某个表单项（如不通过 schema 配置），则需要自行引入对应的组件。
+
 ## 自动导入（推荐）
 
 推荐使用 `unplugin-vue-components` 实现自动按需导入。

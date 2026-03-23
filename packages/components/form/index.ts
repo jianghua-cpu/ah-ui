@@ -16,5 +16,6 @@ AhForm.install = (app: App) => {
 }
 
 export { AhForm, AhFormItem }
+export { formComponents }
 export type { FormSchema } from './src/AhForm.vue'
 export default AhForm

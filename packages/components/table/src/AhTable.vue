@@ -1,7 +1,7 @@
 <template>
   <div class="ah-table-wrapper">
     <!-- 查询区域 -->
-    <div v-if="showSearch && searchForm.length" class="ah-table-search">
+    <div v-if="showSearch && searchForm?.length" class="ah-table-search">
       <el-form
         ref="searchFormRef"
         :model="searchModel"
@@ -139,6 +139,7 @@ import { ref, reactive, computed, watch, nextTick } from 'vue'
 import { Search, Refresh, Download, Setting } from '@element-plus/icons-vue'
 import * as XLSX from 'xlsx'
 import type { FormInstance, TableInstance } from 'element-plus'
+import { ElMessage } from 'element-plus'
 
 export interface SearchFormItem {
   prop: string
@@ -155,6 +156,7 @@ export interface AhTableProps {
   api?: (params: any) => Promise<any>
   remoteParams?: Record<string, any>
   rowKey?: string
+  tableHeight?: string | number
 
   // 表格显示
   border?: boolean
@@ -179,6 +181,8 @@ export interface AhTableProps {
   showExport?: boolean
   exportFileName?: string
   exportFields?: Record<string, string>
+  exportMode?: 'front' | 'api'
+  exportApi?: (params: any) => Promise<any>
 
   // 操作相关
   showActionBar?: boolean
@@ -202,6 +206,7 @@ const props = withDefaults(defineProps<AhTableProps>(), {
   remotePaging: true,
   showExport: true,
   exportFileName: '导出数据',
+  exportMode: 'front',
   showActionBar: true,
   showRefresh: true,
   showColumnSetting: false
@@ -214,6 +219,7 @@ const emit = defineEmits<{
   'page-change': [page: number, size: number]
   'sort-change': [sort: { prop: string; order: string }]
   'export-success': []
+  'export-error': [error: any]
 }>()
 
 const loading = ref(false)
@@ -331,8 +337,70 @@ const handleSortChange = ({ prop, order }: any) => {
   emit('sort-change', { prop, order })
 }
 
+// 接口导出
+const handleApiExport = async () => {
+  if (!props.exportApi) {
+    ElMessage.warning('未配置导出接口 export-api')
+    return
+  }
+
+  loading.value = true
+  try {
+    const params = {
+      ...props.remoteParams,
+      ...searchModel
+    }
+
+    const res = await props.exportApi(params)
+
+    let blob: Blob
+    let fileName = props.exportFileName
+
+    if (res instanceof Blob) {
+      blob = res
+    } else if (res.data instanceof Blob) {
+      blob = res.data
+      fileName = (res as any).filename || props.exportFileName
+    } else if (res.url || res.href) {
+      const link = document.createElement('a')
+      link.href = res.url || res.href
+      link.download = fileName
+      link.click()
+      ElMessage.success('导出成功')
+      emit('export-success')
+      return
+    } else {
+      ElMessage.error('接口返回格式不正确')
+      emit('export-error', res)
+      return
+    }
+
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = `${fileName}_${new Date().toISOString().slice(0, 10)}.xlsx`
+    link.click()
+    URL.revokeObjectURL(url)
+
+    ElMessage.success('导出成功')
+    emit('export-success')
+  } catch (error) {
+    console.error('导出失败:', error)
+    ElMessage.error('导出失败')
+    emit('export-error', error)
+  } finally {
+    loading.value = false
+  }
+}
+
 // 导出功能
 const handleExport = () => {
+  if (props.exportMode === 'api') {
+    handleApiExport()
+    return
+  }
+
+  // 前端导出（原有逻辑）
   const exportData = selectedRows.value.length > 0 ? selectedRows.value : tableData.value
 
   if (exportData.length === 0) {
@@ -340,7 +408,6 @@ const handleExport = () => {
     return
   }
 
-  const fields = props.exportFields || {}
   const headers: Record<string, string> = {}
   const keys: string[] = []
 
