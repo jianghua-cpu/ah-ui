@@ -1,6 +1,7 @@
 node_modules
-lib
 es
+docs/.vitepress/cache/
+docs/.vitepress/dist/
 *.log
 .DS_Store
 .vscode
