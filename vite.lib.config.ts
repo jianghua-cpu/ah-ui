@@ -28,7 +28,8 @@ export default defineConfig({
       output: {
         globals: {
           vue: 'Vue',
-          'element-plus': 'ElementPlus'
+          'element-plus': 'ElementPlus',
+          '@element-plus/icons-vue': 'iconsVue'
         },
         exports: 'named',
         assetFileNames: (assetInfo) => {

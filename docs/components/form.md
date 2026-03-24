@@ -15,7 +15,7 @@ AhForm 是对 Element Plus Form 的封装，通过配置式的方式快速构建
 
 <script setup>
 import { ref, reactive } from 'vue'
-import { AhForm } from 'ah-ui'
+import { AhForm } from '@huazio/ah-ui'
 
 const formData = reactive({})
 

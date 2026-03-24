@@ -1,0 +1,27 @@
+.ah-table-wrapper .ah-table-search[data-v-a0394000] {
+  padding: 16px;
+  background: #fff;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+.ah-table-wrapper .ah-table-search .search-form[data-v-a0394000] .el-form-item {
+  margin-bottom: 12px;
+}
+.ah-table-wrapper .ah-table-action[data-v-a0394000] {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  margin-bottom: 12px;
+}
+.ah-table-wrapper .ah-table-action .action-left[data-v-a0394000],
+.ah-table-wrapper .ah-table-action .action-right[data-v-a0394000] {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ah-table-wrapper .ah-table-pagination[data-v-a0394000] {
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px 0;
+}

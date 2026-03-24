@@ -24,7 +24,7 @@ features:
 ## 安装
 
 ```bash
-npm install ah-ui
+npm install @huazio/ah-ui
 ```
 
 ## 快速使用
@@ -35,7 +35,7 @@ npm install ah-ui
 </template>
 
 <script setup>
-import { AhForm } from 'ah-ui'
+import { AhForm } from '@huazio/ah-ui'
 
 const formData = ref({})
 const schema = [

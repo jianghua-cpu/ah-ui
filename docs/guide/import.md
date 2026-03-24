@@ -8,8 +8,8 @@ AhUI 支持多种导入方式，你可以根据项目需求选择最合适的方
 
 ```ts
 import { createApp } from 'vue'
-import AhUI from 'ah-ui'
-import 'ah-ui/dist/index.css'
+import AhUI from '@huazio/ah-ui'
+import '@huazio/ah-ui/dist/index.css'
 import 'element-plus/dist/index.css'
 
 const app = createApp(App)
@@ -31,9 +31,7 @@ app.mount('#app')
 只引入需要的组件，减少打包体积。
 
 ```ts
-import { AhTable, AhForm } from 'ah-ui'
-import 'ah-ui/es/table/style'
-import 'ah-ui/es/form/style'
+import { AhTable, AhForm } from '@huazio/ah-ui'
 ```
 
 ### 单独引入 form 子组件
@@ -42,11 +40,11 @@ import 'ah-ui/es/form/style'
 
 ```ts
 // 整体引入（所有子组件）
-import { AhForm, formComponents } from 'ah-ui/form'
+import { AhForm, formComponents } from '@huazio/ah-ui/form'
 const { AhInput, AhSelect, AhDatePicker } = formComponents
 
 // 逐个引入（更好的 Tree-shaking）
-import { AhInput, AhSelect, AhDatePicker } from 'ah-ui/form'
+import { AhInput, AhSelect, AhDatePicker } from '@huazio/ah-ui/form'
 ```
 
 支持的子组件列表：`AhInput`、`AhSelect`、`AhDatePicker`、`AhDateRangePicker`、`AhTimePicker`、`AhSwitch`、`AhRadio`、`AhCheckbox`、`AhInputNumber`、`AhCascader`、`AhUpload`。

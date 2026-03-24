@@ -15,7 +15,7 @@ AhTable 是对 Element Plus Table 的封装，支持分页、条件查询、导�
 
 <script setup>
 import { ref } from 'vue'
-import { AhTable, AhTableColumn } from 'ah-ui'
+import { AhTable, AhTableColumn } from '@huazio/ah-ui'
 
 const columns = [
   { prop: 'name', label: '姓名' },

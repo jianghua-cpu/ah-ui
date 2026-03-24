@@ -8,7 +8,7 @@
 ## 安装
 
 ```bash
-npm install ah-ui
+npm install @huazio/ah-ui
 ```
 
 ## 快速使用
@@ -17,8 +17,8 @@ npm install ah-ui
 
 ```ts
 import { createApp } from 'vue'
-import AhUI from 'ah-ui'
-import 'ah-ui/dist/index.css'
+import AhUI from '@huazio/ah-ui'
+import '@huazio/ah-ui/dist/index.css'
 import 'element-plus/dist/index.css'
 
 const app = createApp(App)
@@ -29,8 +29,7 @@ app.mount('#app')
 ### 按需引入
 
 ```ts
-import { AhTable, AhForm } from 'ah-ui'
-import 'ah-ui/es/style.css'
+import { AhTable, AhForm } from '@huazio/ah-ui'
 ```
 
 ### 自动导入
@@ -40,15 +39,10 @@ import 'ah-ui/es/style.css'
 ```ts
 // vite.config.ts
 import Components from 'unplugin-vue-components/vite'
-import { AhUIResolver } from 'ah-ui/resolvers'
 
 export default defineConfig({
   plugins: [
-    Components({
-      resolvers: [
-        AhUIResolver()
-      ]
-    })
+    Components()
   ]
 })
 ```

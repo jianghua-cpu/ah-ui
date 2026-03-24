@@ -157,14 +157,14 @@ interface FormSchema {
 ### 1. 全量引入
 
 ```typescript
-import AhUI from 'ah-ui'
+import AhUI from '@huazio/ah-ui'
 app.use(AhUI)
 ```
 
 ### 2. 按需引入
 
 ```typescript
-import { AhTable, AhForm } from 'ah-ui'
+import { AhTable, AhForm } from '@huazio/ah-ui'
 ```
 
 ### 3. 自动导入

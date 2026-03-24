@@ -1,23 +1,19 @@
 {
-  "name": "ah-ui",
-  "version": "1.0.0",
-  "description": "基于 Element Plus 封装的业务组件库",
+  "name": "@huazio/ah-ui",
+  "version": "1.0.2",
+  "description": "基于 Element Plus 封装的 Vue3 业务组件库",
   "type": "module",
-  "main": "lib/index.js",
-  "module": "es/index.js",
-  "types": "es/index.d.ts",
+  "main": "dist/index.umd.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./es/index.js",
-      "require": "./lib/index.js"
-    },
-    "./es/*": {
-      "import": "./es/*"
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.umd.js"
     }
   },
   "files": [
-    "es",
-    "lib"
+    "dist"
   ],
   "scripts": {
     "dev": "vite",
@@ -25,7 +21,8 @@
     "build:lib": "vite build --config vite.lib.config.ts",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "docs:preview": "vitepress preview docs",
+    "publish": "npm run build:lib && npm publish --access public"
   },
   "peerDependencies": {
     "vue": "^3.2.0",

@@ -32,7 +32,7 @@
             :clearable="item.clearable !== false"
             @change="(val: any) => handleChange(item, val)"
           >
-            <template v-if="item.component === 'select' && item.optionLabel">
+            <template v-if="item.component === 'select' && item.optionLabel" #default>
               <el-option
                 v-for="option in item.options"
                 :key="option[item.optionValue || 'value']"
@@ -41,11 +41,11 @@
                 :disabled="option.disabled"
               />
             </template>
-            <template v-if="item.slots?.prefix">
-              <template #prefix>{{ item.slots.prefix }}</template>
+            <template v-if="item.slots?.prefix" #prefix>
+              {{ item.slots.prefix }}
             </template>
-            <template v-if="item.slots?.suffix">
-              <template #suffix>{{ item.slots.suffix }}</template>
+            <template v-if="item.slots?.suffix" #suffix>
+              {{ item.slots.suffix }}
             </template>
           </component>
         </el-form-item>
